@@ -1,0 +1,17 @@
+import api from "../../services/axiosInstance";
+
+export const generateIdeaAPI = async (data) =>
+{
+    try{
+        const res = await  api.post("/idea/generate", data);
+        return res.data;
+    }catch(e)
+    {
+        console.log(e);
+    }
+}
+
+export const feasibilityAPI = async (idea) => {
+    const res = await api.post("/idea/feasibility", { idea });
+    return res.data;
+}

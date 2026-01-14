@@ -13,6 +13,7 @@ import AuthenticationPage from './pages/AuthenticationPage';
 import { store } from './app/store';
 import PrivateRoute from './components/auth/PrivateRoute';
 import IdeaGeneratorPage from './pages/IdeaGeneratorPage';
+import Logout from './components/auth/Logout';
 const router = createBrowserRouter([
   {
     element: <PrivateRoute />, //PROTECTED AREA

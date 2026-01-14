@@ -4,9 +4,9 @@ const morgan = require("morgan");
 const connectDB = require('./config/database');
 require("dotenv").config();
 const authRoutes = require("./routes/auth.routes");
-const app = express();
+const ideaRoutes = require("./routes/idea.routes")
 const cookieParser = require("cookie-parser");
-
+const app = express();
 
 connectDB();
 // // Security middleware
@@ -24,6 +24,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/idea", ideaRoutes);
 
 app.listen(5000, () => {
   console.log("Backend running on port 5000");

@@ -1,0 +1,38 @@
+ai-llm-service/
+│
+├── src/
+│   ├── server.js
+│   ├── app.js
+│   │
+│   ├── config/
+│   │   └── env.js
+│   │
+│   ├── routes/
+│   │   └── ai.routes.js
+│   │
+│   ├── controllers/
+│   │   └── idea.controller.js
+│   │
+│   ├── services/
+│   │   ├── idea.service.js
+│   │   └── feasibility.service.js
+│   │
+│   ├── prompts/
+│   │   ├── idea.prompt.js
+│   │   └── feasibility.prompt.js
+│   │
+│   ├── providers/
+│   │   ├── groq.provider.js
+│   │   └── index.js
+│   │
+│   ├── middlewares/
+│   │   ├── internalAuth.middleware.js
+│   │   └── error.middleware.js
+│   │
+│   └── utils/
+│       ├── logger.js
+│       └── timeout.js
+│
+├── package.json
+├── .env
+└── README.md

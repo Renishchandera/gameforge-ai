@@ -1,13 +1,36 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:5000/api",
-    timeout: 30000,
-    headers: {
-        "Content-Type":  "application/json",
-    },
+  baseURL: "http://localhost:5000/api",
+  timeout: 30000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
+/* =======================
+   REQUEST INTERCEPTOR
+======================= */
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+/* =======================
+   REFRESH CLIENT (NO INTERCEPTORS)
+======================= */
+const refreshClient = axios.create({
+  baseURL: "http://localhost:5000/api",
+});
+
+/* =======================
+   RESPONSE INTERCEPTOR
+======================= */
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -15,22 +38,31 @@ axiosInstance.interceptors.response.use(
 
     if (
       error.response?.status === 401 &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/auth/refresh")
     ) {
       originalRequest._retry = true;
 
-      const res = await api.post("/auth/refresh");
-      const newToken = res.data.accessToken;
+      try {
+        const res = await refreshClient.post("/auth/refresh");
 
-      localStorage.setItem("token", newToken);
-      originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        const newToken = res.data.accessToken; // or res.data.token
 
-      return api(originalRequest);
+        localStorage.setItem("token", newToken);
+
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/auth";
+        return Promise.reject(refreshError);
+      }
     }
 
     return Promise.reject(error);
   }
 );
-
 
 export default axiosInstance;

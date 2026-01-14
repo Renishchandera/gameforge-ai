@@ -6,6 +6,7 @@ module.exports = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   
   if (!token) {
+    console.log("TOKEN NOT PROVIDED");
     return res.status(401).json({ message: "No token provided" });
   }
   
@@ -15,6 +16,7 @@ module.exports = async (req, res, next) => {
     // Get fresh user data including role
     const user = await User.findById(decoded.id).select("_id username email");
     if (!user) {
+      console.log("USER NOT FOUND");
       return res.status(401).json({ message: "User not found" });
     }
 

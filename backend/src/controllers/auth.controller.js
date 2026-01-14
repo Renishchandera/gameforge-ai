@@ -22,7 +22,9 @@ exports.register = async (req, res) => {
     });
     await user.save();
 
-
+    
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: false,

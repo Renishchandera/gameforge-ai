@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import axios from "@/lib/api"; // your axios instance
+import api from "../../services/axiosInstance";
 import { logout } from "@/features/auth/authSlice";
 
 export default function Logout() {
@@ -11,7 +11,7 @@ export default function Logout() {
   useEffect(() => {
     const doLogout = async () => {
       try {
-        await axios.post("/auth/logout");
+        await api.post("/auth/logout");
       } catch (err) {
         // even if backend fails, we still logout locally
         console.error("Logout error:", err);
