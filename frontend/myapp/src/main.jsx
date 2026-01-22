@@ -14,6 +14,7 @@ import { store } from './app/store';
 import PrivateRoute from './components/auth/PrivateRoute';
 import IdeaGeneratorPage from './pages/IdeaGeneratorPage';
 import Logout from './components/auth/Logout';
+import SavedIdeasPage from './pages/SavedIdeasPage';
 const router = createBrowserRouter([
   {
     element: <PrivateRoute />, //PROTECTED AREA
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
           { index: true, element: <HomePage /> },
-          { path: "/generate/idea", element: <IdeaGeneratorPage/>}
+          { path: "/generate/idea", element: <IdeaGeneratorPage/>},
+          { path: "/my/ideas", element: <SavedIdeasPage/> } 
         ],
       },
     ],
