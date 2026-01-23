@@ -1,0 +1,35 @@
+genre,count,percentage_of_games
+Indie,80630,65.76
+Casual,50210,40.95
+Action,46220,37.7
+Adventure,45141,36.82
+Simulation,24114,19.67
+Strategy,22400,18.27
+RPG,20972,17.1
+Free To Play,12172,9.93
+Early Access,11091,9.05
+Unknown,8413,6.86
+Sports,4882,3.98
+Racing,4079,3.33
+Massively Multiplayer,2527,2.06
+Utilities,1077,0.88
+Design & Illustration,580,0.47
+Animation & Modeling,477,0.39
+Education,461,0.38
+Violent,414,0.34
+Video Production,339,0.28
+Game Development,320,0.26
+Gore,257,0.21
+Audio Production,225,0.18
+Software Training,219,0.18
+Photo Editing,180,0.15
+Web Publishing,112,0.09
+Nudity,94,0.08
+Sexual Content,88,0.07
+Accounting,30,0.02
+Movie,2,0.0
+Documentary,1,0.0
+Episodic,1,0.0
+Short,1,0.0
+Tutorial,1,0.0
+360 Video,1,0.0

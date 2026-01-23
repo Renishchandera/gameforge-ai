@@ -1,0 +1,12 @@
+{
+  "accuracy": 0.7287036659462546,
+  "features": [
+    "genre",
+    "platform",
+    "price",
+    "price_category",
+    "genre_popularity",
+    "complexity"
+  ],
+  "model_type": "gradient_boosting"
+}

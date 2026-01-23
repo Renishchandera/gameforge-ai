@@ -1,0 +1,12 @@
+{
+  "accuracy": 0.7286221098560535,
+  "features": [
+    "genre",
+    "platform",
+    "price",
+    "price_category",
+    "genre_popularity",
+    "complexity"
+  ],
+  "model_type": "decision_tree"
+}

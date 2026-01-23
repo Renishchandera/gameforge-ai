@@ -1,0 +1,453 @@
+tag_list,count,percentage_of_games
+Singleplayer,50350,41.06
+Indie,48552,39.6
+Action,36809,30.02
+Casual,36564,29.82
+Adventure,35196,28.71
+2D,26792,21.85
+3D,17996,14.68
+Simulation,17893,14.59
+Strategy,17848,14.56
+Puzzle,16368,13.35
+Atmospheric,16281,13.28
+RPG,15743,12.84
+Colorful,14260,11.63
+Pixel Graphics,13868,11.31
+Story Rich,13344,10.88
+Exploration,13240,10.8
+Cute,12679,10.34
+First-Person,12293,10.03
+Fantasy,11501,9.38
+Arcade,11495,9.38
+Early Access,10238,8.35
+Multiplayer,10144,8.27
+Funny,9861,8.04
+Horror,9671,7.89
+Action-Adventure,9607,7.84
+Retro,9261,7.55
+Shooter,9216,7.52
+Relaxing,9121,7.44
+Family Friendly,8904,7.26
+Platformer,8800,7.18
+Sci-fi,8460,6.9
+Anime,8161,6.66
+Combat,7630,6.22
+Female Protagonist,7579,6.18
+Controller,7538,6.15
+Top-Down,7490,6.11
+Stylized,7205,5.88
+Third Person,7163,5.84
+Survival,6536,5.33
+2D Platformer,6438,5.25
+Difficult,6348,5.18
+Mystery,6226,5.08
+Linear,6204,5.06
+Cartoony,6133,5.0
+Psychological Horror,6100,4.98
+Dark,6057,4.94
+Realistic,6048,4.93
+Open World,5992,4.89
+Comedy,5977,4.87
+Visual Novel,5823,4.75
+Choices Matter,5798,4.73
+Physics,5751,4.69
+VR,5741,4.68
+Minimalist,5618,4.58
+Point & Click,5448,4.44
+FPS,5377,4.39
+Multiple Endings,5345,4.36
+Co-op,5258,4.29
+PvE,5176,4.22
+Free to Play,4982,4.06
+PvP,4958,4.04
+Rogue-like,4951,4.04
+Violent,4871,3.97
+Sandbox,4665,3.8
+Rogue-lite,4634,3.78
+Hand-drawn,4488,3.66
+Side Scroller,4423,3.61
+Old School,4422,3.61
+Hidden Object,4406,3.59
+Space,4364,3.56
+Logic,4288,3.5
+Character Customization,4246,3.46
+Gore,4229,3.45
+Great Soundtrack,4219,3.44
+Management,4174,3.4
+Action RPG,4139,3.38
+Magic,4104,3.35
+Tactical,4083,3.33
+Building,4053,3.31
+Puzzle-Platformer,4019,3.28
+3D Platformer,3970,3.24
+Sports,3925,3.2
+Procedural Generation,3721,3.03
+Cartoon,3641,2.97
+Shoot 'Em Up,3575,2.92
+Bullet Hell,3574,2.91
+Medieval,3558,2.9
+Survival Horror,3553,2.9
+Turn-Based Strategy,3546,2.89
+Futuristic,3546,2.89
+Action Roguelike,3500,2.85
+Local Multiplayer,3476,2.83
+Turn-Based Combat,3354,2.74
+Drama,3351,2.73
+Walking Simulator,3322,2.71
+Immersive Sim,3320,2.71
+Interactive Fiction,3307,2.7
+Choose Your Own Adventure,3293,2.69
+Racing,3264,2.66
+Sexual Content,3252,2.65
+Turn-Based Tactics,3227,2.63
+Online Co-Op,3203,2.61
+Crafting,3193,2.6
+Resource Management,3138,2.56
+1990's,3125,2.55
+Score Attack,3052,2.49
+Hack and Slash,3010,2.45
+Dark Fantasy,3006,2.45
+Emotional,2963,2.42
+Surreal,2947,2.4
+Nudity,2898,2.36
+Nature,2893,2.36
+Dungeon Crawler,2832,2.31
+Zombies,2824,2.3
+JRPG,2698,2.2
+Local Co-Op,2666,2.17
+Education,2641,2.15
+Top-Down Shooter,2607,2.13
+War,2587,2.11
+Historical,2558,2.09
+Post-apocalyptic,2518,2.05
+Romance,2517,2.05
+Text-Based,2511,2.05
+Base-Building,2477,2.02
+Replay Value,2376,1.94
+Isometric,2357,1.92
+Precision Platformer,2322,1.89
+Clicker,2307,1.88
+Stealth,2297,1.87
+Investigation,2292,1.87
+1980s,2279,1.86
+Card Game,2222,1.81
+2.5D,2188,1.78
+Abstract,2177,1.78
+Detective,2141,1.75
+Narration,2085,1.7
+Turn-Based,2071,1.69
+Life Sim,2065,1.68
+Thriller,2057,1.68
+Military,2054,1.68
+Cinematic,2042,1.67
+Tower Defense,2019,1.65
+Board Game,1982,1.62
+RTS,1981,1.62
+Psychological,1968,1.61
+Third-Person Shooter,1961,1.6
+Time Management,1961,1.6
+Dating Sim,1950,1.59
+Aliens,1946,1.59
+Dark Humor,1914,1.56
+Robots,1913,1.56
+Economy,1912,1.56
+Tabletop,1882,1.53
+Demons,1860,1.52
+Short,1853,1.51
+Fast-Paced,1848,1.51
+Cyberpunk,1847,1.51
+Perma Death,1824,1.49
+Arena Shooter,1756,1.43
+Collectathon,1753,1.43
+Strategy RPG,1749,1.43
+Supernatural,1728,1.41
+Real Time Tactics,1716,1.4
+Driving,1696,1.38
+RPGMaker,1691,1.38
+Conversation,1691,1.38
+Memes,1681,1.37
+City Builder,1639,1.34
+Runner,1637,1.34
+Psychedelic,1607,1.31
+Tutorial,1585,1.29
+Massively Multiplayer,1583,1.29
+Lore-Rich,1572,1.28
+Idler,1568,1.28
+LGBTQ+,1558,1.27
+4 Player Local,1557,1.27
+Wargame,1542,1.26
+Nonlinear,1540,1.26
+Flight,1534,1.25
+Mature,1488,1.21
+Beat 'em up,1471,1.2
+Tactical RPG,1432,1.17
+Classic,1398,1.14
+Comic Book,1395,1.14
+Artificial Intelligence,1331,1.09
+Metroidvania,1330,1.08
+Party-Based RPG,1316,1.07
+Modern,1316,1.07
+Grid-Based Movement,1310,1.07
+Parkour,1295,1.06
+Loot,1294,1.06
+Deckbuilding,1292,1.05
+Level Editor,1286,1.05
+Souls-like,1284,1.05
+Cats,1277,1.04
+Dystopian,1266,1.03
+Inventory Management,1208,0.99
+Experimental,1202,0.98
+Team-Based,1200,0.98
+Twin Stick Shooter,1199,0.98
+2D Fighter,1186,0.97
+Music,1175,0.96
+Hentai,1162,0.95
+Automobile Sim,1147,0.94
+Alternate History,1138,0.93
+Fighting,1134,0.92
+Destruction,1109,0.9
+CRPG,1107,0.9
+Crime,1083,0.88
+Rhythm,1081,0.88
+Match 3,1065,0.87
+Card Battler,1064,0.87
+Mythology,1064,0.87
+Competitive,1046,0.85
+Utilities,1025,0.84
+Creature Collector,975,0.8
+Moddable,959,0.78
+Design & Illustration,939,0.77
+Philosophical,929,0.76
+Dark Comedy,897,0.73
+Soundtrack,890,0.73
+Space Sim,887,0.72
+Grand Strategy,880,0.72
+Automation,873,0.71
+3D Fighter,862,0.7
+Farming Sim,846,0.69
+Capitalism,846,0.69
+Word Game,843,0.69
+Noir,828,0.68
+Mystery Dungeon,824,0.67
+NSFW,815,0.66
+Lovecraftian,815,0.66
+Science,813,0.66
+Swordplay,781,0.64
+Solitaire,772,0.63
+Colony Sim,759,0.62
+Split Screen,751,0.61
+World War II,746,0.61
+Cozy,737,0.6
+3D Vision,736,0.6
+Vehicular Combat,720,0.59
+Dragons,700,0.57
+6DOF,694,0.57
+Software,694,0.57
+Parody,691,0.56
+e-sports,687,0.56
+Sokoban,687,0.56
+America,684,0.56
+Auto Battler,683,0.56
+Bullet Time,683,0.56
+Spectacle fighter,678,0.55
+Class-Based,673,0.55
+Beautiful,668,0.54
+Cooking,660,0.54
+Agriculture,657,0.54
+Hero Shooter,646,0.53
+Combat Racing,635,0.52
+Gun Customization,632,0.52
+Voxel,630,0.51
+Time Manipulation,620,0.51
+Mechs,609,0.5
+God Game,606,0.49
+Conspiracy,606,0.49
+Mouse only,599,0.49
+Martial Arts,597,0.49
+Character Action Game,588,0.48
+Quick-Time Events,574,0.47
+Underground,574,0.47
+Trading,572,0.47
+Gothic,564,0.46
+Open World Survival Craft,562,0.46
+Wholesome,557,0.45
+Battle Royale,557,0.45
+Hex Grid,549,0.45
+FMV,546,0.45
+Satire,545,0.44
+Dog,544,0.44
+Looter Shooter,529,0.43
+Co-op Campaign,528,0.43
+Political,526,0.43
+Blood,523,0.43
+Ninja,521,0.42
+Animation & Modeling,520,0.42
+Pirates,518,0.42
+Steampunk,516,0.42
+Mining,497,0.41
+Game Development,495,0.4
+Underwater,491,0.4
+Tanks,486,0.4
+Time Travel,481,0.39
+Action RTS,477,0.39
+Programming,466,0.38
+Dynamic Narration,465,0.38
+Escape Room,454,0.37
+MMORPG,454,0.37
+Hunting,443,0.36
+Fishing,443,0.36
+Otome,442,0.36
+4X,440,0.36
+Remake,438,0.36
+Vampire,437,0.36
+Narrative,437,0.36
+Roguelike Deckbuilder,434,0.35
+Real-Time,428,0.35
+Faith,425,0.35
+Party Game,425,0.35
+Hacking,420,0.34
+Addictive,410,0.33
+Transportation,409,0.33
+Political Sim,405,0.33
+Dinosaurs,405,0.33
+Typing,404,0.33
+Immersive,403,0.33
+Politics,387,0.32
+Minigames,381,0.31
+Boomer Shooter,378,0.31
+Western,377,0.31
+Trading Card Game,374,0.31
+Assassin,363,0.3
+Naval,360,0.29
+Party,353,0.29
+Time Attack,350,0.29
+Superhero,345,0.28
+Asynchronous Multiplayer,345,0.28
+Snow,338,0.28
+Video Production,336,0.27
+Trivia,330,0.27
+Trains,321,0.26
+Real-Time with Pause,316,0.26
+Diplomacy,313,0.26
+On-Rails Shooter,310,0.25
+Cult Classic,307,0.25
+Cold War,296,0.24
+Archery,294,0.24
+MOBA,291,0.24
+Gambling,290,0.24
+Football (Soccer),290,0.24
+Illuminati,287,0.23
+Sailing,271,0.22
+Heist,269,0.22
+Touch-Friendly,266,0.22
+Naval Combat,257,0.21
+Audio Production,246,0.2
+Offroad,243,0.2
+Nostalgia,241,0.2
+Music-Based Procedural Generation,237,0.19
+Foreign,236,0.19
+Villain Protagonist,232,0.19
+Traditional Roguelike,231,0.19
+Spelling,224,0.18
+Mars,221,0.18
+Horses,220,0.18
+Sniper,219,0.18
+Software Training,218,0.18
+Sequel,215,0.18
+Experience,212,0.17
+Chess,210,0.17
+Boxing,205,0.17
+Farming,205,0.17
+Golf,198,0.16
+Jet,194,0.16
+Unforgiving,193,0.16
+Photo Editing,188,0.15
+Outbreak Sim,181,0.15
+Kickstarter,181,0.15
+World War I,177,0.14
+Episodic,175,0.14
+GameMaker,173,0.14
+Werewolves,172,0.14
+Motorbike,170,0.14
+Transhumanism,170,0.14
+Bikes,165,0.13
+Rome,165,0.13
+Spaceships,161,0.13
+Roguevania,161,0.13
+Pinball,153,0.12
+Submarine,151,0.12
+Basketball,145,0.12
+Medical Sim,144,0.12
+Asymmetric VR,137,0.11
+LEGO,131,0.11
+Dwarf,131,0.11
+Football (American),126,0.1
+Job Simulator,124,0.1
+Web Publishing,122,0.1
+Mini Golf,120,0.1
+Silent Protagonist,120,0.1
+Social Deduction,119,0.1
+Electronic Music,118,0.1
+Epic,118,0.1
+Movie,112,0.09
+Ambient,111,0.09
+Jump Scare,111,0.09
+360 Video,102,0.08
+Crowdfunded,101,0.08
+Tennis,100,0.08
+Vikings,97,0.08
+Intentionally Awkward Controls,95,0.08
+Pool,94,0.08
+Wrestling,93,0.08
+Gaming,91,0.07
+Dungeons & Dragons,91,0.07
+Baseball,89,0.07
+Mahjong,87,0.07
+Games Workshop,87,0.07
+Cycling,84,0.07
+Instrumental Music,80,0.07
+Boss Rush,80,0.07
+Skateboarding,79,0.06
+Motocross,79,0.06
+Mod,78,0.06
+Lemmings,76,0.06
+Hockey,75,0.06
+Based On A Novel,74,0.06
+Skating,72,0.06
+Bowling,64,0.05
+Warhammer 40K,55,0.04
+Well-Written,54,0.04
+BMX,53,0.04
+Skiing,52,0.04
+8-bit Music,52,0.04
+Shop Keeper,46,0.04
+Rock Music,46,0.04
+Snowboarding,44,0.04
+Electronic,43,0.04
+Voice Control,42,0.03
+Dice,40,0.03
+ATV,39,0.03
+Extraction Shooter,38,0.03
+Musou,36,0.03
+Birds,36,0.03
+TrackIR,35,0.03
+Coding,33,0.03
+Documentary,32,0.03
+Fox,30,0.02
+Cricket,29,0.02
+Masterpiece,28,0.02
+Benchmark,27,0.02
+Hardware,24,0.02
+Volleyball,22,0.02
+Rugby,21,0.02
+Lara Croft,19,0.02
+Snooker,17,0.01
+Elf,17,0.01
+Feature Film,15,0.01
+Hobby Sim,15,0.01
+Reboot,13,0.01
+Steam Machine,13,0.01
+VR Only,10,0.01
+Football,1,0.0
+Batman,1,0.0
+Tile-Matching,1,0.0

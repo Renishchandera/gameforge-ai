@@ -42,6 +42,12 @@ ai-service/venv/
 ai-service/.venv/
 ai-service/env/
 ai-service/*.pyc
+ai-service/data
+# =========================
+# AI LLM Service (Node)
+# =========================
+ai-llm-service/env/
+
 
 # =========================
 # IDEs

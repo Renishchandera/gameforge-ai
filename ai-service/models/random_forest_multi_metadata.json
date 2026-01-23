@@ -1,0 +1,12 @@
+{
+  "accuracy": 0.4910084410553358,
+  "features": [
+    "genre",
+    "platform",
+    "price",
+    "price_category",
+    "genre_popularity",
+    "complexity"
+  ],
+  "model_type": "random_forest_multi"
+}
