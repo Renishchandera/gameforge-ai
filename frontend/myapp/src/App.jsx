@@ -5,7 +5,7 @@ function App({children}) {
 
   return (
     <>
-      <h1 className='text-red-900'>GameForge AI</h1>
+      <h1 className='text-red-900'>GameForge</h1>
       <Outlet>{children}</Outlet>
     </>
   );

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { generateIdeaAPI, feasibilityAPI, saveIdeaAPI } from "../features/ideator/ideatorAPI";
 import { Link } from "react-router";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const GAME_GENRES = [
   "Action", "Adventure", "RPG", "Strategy", "Simulation",
@@ -102,6 +103,7 @@ export default function IdeaGeneratorPage() {
   };
 
   return (
+    <DashboardLayout>
     <div className="p-6 max-w-6xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">🎮 Game Idea Generator</h1>
@@ -314,5 +316,6 @@ export default function IdeaGeneratorPage() {
         </div>
       </div>
     </div>
+    </DashboardLayout>
   );
 }

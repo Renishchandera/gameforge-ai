@@ -1,5 +1,5 @@
 const aiLLMClient = require("../services/aiLLM.client");
-const Idea = require("../models/Idea")
+const Idea = require("../models/Idea");
 exports.generateIdea = async (req, res) => {
   const response = await aiLLMClient.post(
     "/ai/idea/generate",

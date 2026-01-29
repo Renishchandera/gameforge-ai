@@ -15,6 +15,12 @@ import PrivateRoute from './components/auth/PrivateRoute';
 import IdeaGeneratorPage from './pages/IdeaGeneratorPage';
 import Logout from './components/auth/Logout';
 import SavedIdeasPage from './pages/SavedIdeasPage';
+import ProjectLayout from './pages/project/ProjectLayout';
+import ProjectOverview from './pages/project/ProjectOverview';
+import ProjectDocuments from './pages/project/ProjectDocuments';
+import ProjectPrediction from './pages/project/ProjectPrediction';
+import ProjectTasks from './pages/project/ProjectTasks';
+import ProjectsPage from './pages/ProjectsPage';
 const router = createBrowserRouter([
   {
     element: <PrivateRoute />, //PROTECTED AREA
@@ -24,8 +30,23 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
           { index: true, element: <HomePage /> },
-          { path: "/generate/idea", element: <IdeaGeneratorPage/>},
-          { path: "/my/ideas", element: <SavedIdeasPage/> } 
+          { path: "/generate/idea", element: <IdeaGeneratorPage /> },
+          { path: "/my/ideas", element: <SavedIdeasPage /> },
+          {
+            path: "projects",
+            element: <ProjectsPage />
+          },
+          {
+            path: "projects/:projectId",
+            element: <ProjectLayout />,
+            children: [
+              { index: true, element: <ProjectOverview /> },
+              { path: "prediction", element: <ProjectPrediction /> },
+              { path: "tasks", element: <ProjectTasks /> },
+              { path: "documents", element: <ProjectDocuments /> }
+            ]
+          }
+
         ],
       },
     ],
@@ -36,7 +57,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <LoginForm /> },
       { path: "register", element: <RegisterForm /> },
-      { path: "logout", element: <Logout/>}
+      { path: "logout", element: <Logout /> }
     ],
   },
 ]);
@@ -46,6 +67,6 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-    
+
   </StrictMode>,
 )

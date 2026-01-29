@@ -1,0 +1,13 @@
+{
+  "model_version": "v2.0.1",
+  "features": [
+    "genre",
+    "platform",
+    "price",
+    "years_since_release",
+    "genre_market_share",
+    "content_scope",
+    "team_size",
+    "is_multiplayer"
+  ]
+}
