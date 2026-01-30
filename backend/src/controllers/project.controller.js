@@ -1,6 +1,12 @@
 const Project = require("../models/Project");
 const Idea = require("../models/Idea");
 
+const normalizeToArray = (value) => {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+};
+
+
 /**
  * 1️⃣ CREATE PROJECT MANUALLY
  */
@@ -9,8 +15,8 @@ exports.createProjectManual = async (req, res) => {
     const {
       name,
       description,
-      genre,
-      platform,
+      genres,
+      platforms,
       targetAudience,
       coreMechanic,
       artStyle,
@@ -27,8 +33,8 @@ exports.createProjectManual = async (req, res) => {
     const project = await Project.create({
       name,
       description,
-      genre,
-      platform,
+      genres: normalizeToArray(req.body.genres),
+      platforms: normalizeToArray(req.body.platforms),
       targetAudience,
       coreMechanic,
       artStyle,
@@ -77,18 +83,17 @@ exports.createProjectFromIdea = async (req, res) => {
 
     const project = await Project.create({
       name: idea.title || "Untitled Project",
-      description: idea.content,
-
-      genre: idea.genre,
-      platform: idea.platform,
+      description: idea.content.slice(0, 200),
+      genres: idea.genres || [],
+      platforms: idea.platforms || [],
       targetAudience: idea.targetAudience,
       coreMechanic: idea.coreMechanic,
       artStyle: idea.artStyle,
       monetization: idea.monetization,
-
       sourceIdea: idea._id,
       owner: req.user.id
     });
+
 
     idea.isConvertedToProject = true;
     await idea.save();

@@ -64,7 +64,7 @@ export default function SavedIdeasPage() {
 
   if (loading) {
     return (
-          <DashboardLayout>
+      <DashboardLayout>
       <div className="p-6 max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold mb-6">My Saved Ideas</h1>
         <div className="text-center py-10">

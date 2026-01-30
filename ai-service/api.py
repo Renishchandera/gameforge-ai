@@ -1,7 +1,13 @@
-from fastapi import FastAPI, HTTPException
+
+from dotenv import load_dotenv
+load_dotenv()
+
+from fastapi import FastAPI, Depends
 from pydantic import BaseModel, Field
 import joblib
 import pandas as pd
+
+from security.internal_auth import verify_internal_key
 
 MODEL_VERSION = "v2.0.1"
 model = joblib.load(f"models/success_predictor_{MODEL_VERSION}.pkl")
@@ -20,7 +26,7 @@ class GameInput(BaseModel):
 
 # ------------------ API ------------------
 
-@app.post("/predict-success")
+@app.post("/predict-success", dependencies=[Depends(verify_internal_key)])
 def predict_success(data: GameInput):
     years_since_release = max(0, 2026 - data.release_year)
 
@@ -32,7 +38,7 @@ def predict_success(data: GameInput):
         "team_size": data.team_size,
         "is_multiplayer": int(data.is_multiplayer),
 
-        # placeholders (computed in training distribution)
+        # placeholders
         "genre_market_share": 0.02,
         "content_scope": 0.0
     }])

@@ -6,8 +6,8 @@ const ideaSchema = new mongoose.Schema(
     content: { type: String, required: true },
 
     // Idea attributes
-    genre: String,
-    platform: String,
+    genres: [{ type: String }],
+    platforms: [{ type: String }],
     targetAudience: String,
     coreMechanic: String,
     artStyle: String,

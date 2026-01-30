@@ -21,6 +21,7 @@ import ProjectDocuments from './pages/project/ProjectDocuments';
 import ProjectPrediction from './pages/project/ProjectPrediction';
 import ProjectTasks from './pages/project/ProjectTasks';
 import ProjectsPage from './pages/ProjectsPage';
+import CreateProjectPage from './pages/CreateProjectPage';
 const router = createBrowserRouter([
   {
     element: <PrivateRoute />, //PROTECTED AREA
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
           {
             path: "projects",
             element: <ProjectsPage />
+          },
+          {
+            path: "projects/new",
+            element: <CreateProjectPage />
           },
           {
             path: "projects/:projectId",

@@ -10,8 +10,8 @@ const projectSchema = new mongoose.Schema(
     description: String, // short project summary
 
     // Core game definition
-    genre: String,
-    platform: String,
+    genres: [{ type: String }],
+    platforms: [{ type: String }],
     targetAudience: String,
     coreMechanic: String,
     artStyle: String,
