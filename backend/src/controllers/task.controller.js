@@ -159,3 +159,101 @@ exports.deleteTask = async (req, res) => {
     });
   }
 };
+
+
+// controllers/task.controller.js - Add these new methods
+
+/**
+ * BATCH UPDATE TASKS STATUS
+ * PATCH /tasks/batch/status
+ */
+exports.batchUpdateTaskStatus = async (req, res) => {
+  try {
+    const { taskIds, status } = req.body;
+
+    if (!taskIds || !Array.isArray(taskIds) || taskIds.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Task IDs array is required"
+      });
+    }
+
+    // Verify all tasks belong to user's projects
+    const tasks = await Task.find({ _id: { $in: taskIds } }).populate("project");
+    
+    const unauthorized = tasks.some(task => 
+      task.project.owner.toString() !== req.user.id
+    );
+
+    if (unauthorized) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized to update some tasks"
+      });
+    }
+
+    // Update all tasks
+    await Task.updateMany(
+      { _id: { $in: taskIds } },
+      { $set: { status } }
+    );
+
+    const updatedTasks = await Task.find({ _id: { $in: taskIds } });
+
+    res.json({
+      success: true,
+      tasks: updatedTasks
+    });
+  } catch (error) {
+    console.error("Batch update tasks error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update tasks"
+    });
+  }
+};
+
+/**
+ * GET TASKS GROUPED BY STATUS
+ * GET /projects/:projectId/tasks/grouped
+ */
+exports.getTasksGroupedByStatus = async (req, res) => {
+  try {
+    const { projectId } = req.params;
+
+    // Verify project ownership
+    const project = await Project.findOne({
+      _id: projectId,
+      owner: req.user.id
+    });
+
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found"
+      });
+    }
+
+    const tasks = await Task.find({ project: projectId })
+      .sort({ priority: -1, createdAt: -1 });
+
+    // Group tasks by status
+    const grouped = {
+      todo: tasks.filter(t => t.status === "todo"),
+      "in-progress": tasks.filter(t => t.status === "in-progress"),
+      done: tasks.filter(t => t.status === "done")
+    };
+
+    res.json({
+      success: true,
+      grouped,
+      total: tasks.length
+    });
+  } catch (error) {
+    console.error("Get grouped tasks error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch tasks"
+    });
+  }
+};

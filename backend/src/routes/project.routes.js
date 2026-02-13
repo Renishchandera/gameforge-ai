@@ -14,6 +14,8 @@ router.get("/:id", auth, controller.getProjectById);
 router.put("/:id", auth, controller.updateProject);
 router.delete("/:id", auth, controller.deleteProject);
 
-
+// New routes
+router.patch("/:id/status", auth, controller.updateProjectStatus);
+router.get("/:id/stats", auth, controller.getProjectStats);
 
 module.exports = router;

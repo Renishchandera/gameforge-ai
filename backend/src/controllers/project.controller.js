@@ -81,11 +81,14 @@ exports.createProjectFromIdea = async (req, res) => {
       });
     }
 
+    // Handle both old and new data formats
     const project = await Project.create({
       name: idea.title || "Untitled Project",
       description: idea.content.slice(0, 200),
-      genres: idea.genres || [],
-      platforms: idea.platforms || [],
+      // Support both genres (array) and genre (string)
+      genres: idea.genres || (idea.genre ? [idea.genre] : []),
+      // Support both platforms (array) and platform (string)
+      platforms: idea.platforms || (idea.platform ? [idea.platform] : []),
       targetAudience: idea.targetAudience,
       coreMechanic: idea.coreMechanic,
       artStyle: idea.artStyle,
@@ -93,7 +96,6 @@ exports.createProjectFromIdea = async (req, res) => {
       sourceIdea: idea._id,
       owner: req.user.id
     });
-
 
     idea.isConvertedToProject = true;
     await idea.save();
@@ -110,7 +112,6 @@ exports.createProjectFromIdea = async (req, res) => {
     });
   }
 };
-
 /**
  * GET ALL PROJECTS
  */
@@ -215,6 +216,142 @@ exports.deleteProject = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to delete project"
+    });
+  }
+};
+
+
+// controllers/project.controller.js - Add this new method
+
+/**
+ * UPDATE PROJECT STATUS ONLY
+ * PATCH /projects/:id/status
+ */
+exports.updateProjectStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    
+    // Validate status
+    const validStatuses = ["concept", "pre-production", "production", "paused", "released"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid status value"
+      });
+    }
+
+    const project = await Project.findOneAndUpdate(
+      { _id: req.params.id, owner: req.user.id },
+      { status },
+      { new: true }
+    );
+
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      project
+    });
+  } catch (error) {
+    console.error("Update project status error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update project status"
+    });
+  }
+};
+
+/**
+ * GET PROJECT STATISTICS
+ * GET /projects/:id/stats
+ */
+exports.getProjectStats = async (req, res) => {
+  try {
+    const projectId = req.params.id;
+    
+    // Verify project ownership
+    const project = await Project.findOne({
+      _id: projectId,
+      owner: req.user.id
+    });
+
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found"
+      });
+    }
+
+    // Get task statistics
+    const Task = require("../models/Task");
+    const taskStats = await Task.aggregate([
+      { $match: { project: project._id } },
+      { 
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Format stats
+    const stats = {
+      total: 0,
+      todo: 0,
+      inProgress: 0,
+      done: 0,
+      byPriority: {
+        low: 0,
+        medium: 0,
+        high: 0
+      }
+    };
+
+    taskStats.forEach(stat => {
+      if (stat._id === "todo") stats.todo = stat.count;
+      if (stat._id === "in-progress") stats.inProgress = stat.count;
+      if (stat._id === "done") stats.done = stat.count;
+    });
+    
+    stats.total = stats.todo + stats.inProgress + stats.done;
+
+    // Get priority stats
+    const priorityStats = await Task.aggregate([
+      { $match: { project: project._id } },
+      {
+        $group: {
+          _id: "$priority",
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    priorityStats.forEach(stat => {
+      if (stat._id === "low") stats.byPriority.low = stat.count;
+      if (stat._id === "medium") stats.byPriority.medium = stat.count;
+      if (stat._id === "high") stats.byPriority.high = stat.count;
+    });
+
+    // Calculate completion percentage
+    stats.completionPercentage = stats.total > 0 
+      ? Math.round((stats.done / stats.total) * 100) 
+      : 0;
+
+    res.json({
+      success: true,
+      stats,
+      project
+    });
+  } catch (error) {
+    console.error("Get project stats error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch project statistics"
     });
   }
 };
