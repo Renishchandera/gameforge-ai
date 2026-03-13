@@ -8,7 +8,7 @@ const ideaRoutes = require("./routes/idea.routes");
 const projectRoutes = require("./routes/project.routes");
 const mlServiceRoutes = require("./routes/mlService.routes");
 const taskRoutes = require("./routes/task.routes");
-
+const documentRoutes = require("./routes/document.routes");
 const cookieParser = require("cookie-parser");
 const app = express();
 
@@ -38,7 +38,7 @@ app.use("/api/idea", ideaRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/ml", mlServiceRoutes);
 app.use("/api", taskRoutes);
-
+app.use("/api", documentRoutes);
 app.listen(5000, () => {
   console.log("Backend running on port 5000");
 });

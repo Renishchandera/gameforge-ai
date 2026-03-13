@@ -22,6 +22,7 @@ import ProjectPrediction from './pages/project/ProjectPrediction';
 import ProjectTasks from './pages/project/ProjectTasks';
 import ProjectsPage from './pages/ProjectsPage';
 import CreateProjectPage from './pages/CreateProjectPage';
+import DocumentView from './pages/project/DocumentView';
 const router = createBrowserRouter([
   {
     element: <PrivateRoute />, //PROTECTED AREA
@@ -48,7 +49,8 @@ const router = createBrowserRouter([
               { index: true, element: <ProjectOverview /> },
               { path: "prediction", element: <ProjectPrediction /> },
               { path: "tasks", element: <ProjectTasks /> },
-              { path: "documents", element: <ProjectDocuments /> }
+              { path: "documents", element: <ProjectDocuments /> },
+              { path: "documents/:documentId", element: <DocumentView/>},
             ]
           }
 
@@ -68,10 +70,9 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
 
-  </StrictMode>,
+
 )
