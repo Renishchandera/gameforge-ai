@@ -18,4 +18,5 @@ router.delete("/:id", auth, controller.deleteProject);
 router.patch("/:id/status", auth, controller.updateProjectStatus);
 router.get("/:id/stats", auth, controller.getProjectStats);
 
+router.post("/:id/feasibility", auth, controller.projectFeasibility);
 module.exports = router;

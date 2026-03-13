@@ -85,6 +85,12 @@ export default function ProjectDetailsCard({ project, onProjectUpdate }) {
     setIsEditing(false);
   };
 
+  // Helper function to truncate description for preview
+  const truncateDescription = (text, maxLength = 300) => {
+    if (!text || text.length <= maxLength) return text;
+    return text.substring(0, maxLength).trim() + '...';
+  };
+
   // ----- EDIT MODE -----
   if (isEditing) {
     return (
@@ -140,13 +146,59 @@ export default function ProjectDetailsCard({ project, onProjectUpdate }) {
             </div>
           </div>
 
-          {/* Description */}
-          <TextArea
-            label="Description"
-            value={editedProject.description}
-            onChange={(e) => handleInputChange('description', e.target.value)}
-            placeholder="Brief description of your project..."
-          />
+          {/* Enhanced Description Editor */}
+          <div className="space-y-2">
+            <TextArea
+              label="Description"
+              value={editedProject.description}
+              onChange={(e) => handleInputChange('description', e.target.value)}
+              placeholder="Describe your project in detail. What makes it unique? What's the vision?"
+              rows={5}
+              helpText="A good description helps others understand your project better. Be specific about the vision, unique features, and current status."
+            />
+            
+            {/* Character count */}
+            <div className="flex justify-end">
+              <span className={`text-xs ${editedProject.description?.length > 500 ? 'text-yellow-600' : 'text-gray-400'}`}>
+                {editedProject.description?.length || 0} characters
+              </span>
+            </div>
+            
+            {/* Quick description templates */}
+            <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <p className="text-xs font-medium text-gray-700 mb-2">Quick description ideas:</p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleInputChange('description', 'A unique blend of adventure and puzzle mechanics set in a vibrant world. Players explore mysterious environments while solving challenges that progress the story.')}
+                  className="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-full hover:border-black hover:bg-gray-50 transition-colors"
+                >
+                  🎮 Adventure/Puzzle
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleInputChange('description', 'Fast-paced multiplayer action with strategic depth. Choose your character, master unique abilities, and compete in dynamic arenas.')}
+                  className="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-full hover:border-black hover:bg-gray-50 transition-colors"
+                >
+                  ⚔️ Action/Multiplayer
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleInputChange('description', 'A narrative-driven RPG where choices shape the story. Build relationships, uncover mysteries, and create your own path in a living, breathing world.')}
+                  className="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-full hover:border-black hover:bg-gray-50 transition-colors"
+                >
+                  📖 RPG/Story
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleInputChange('description', 'Creative sandbox experience focused on building and discovery. Construct, craft, and explore with friends in an ever-expanding world.')}
+                  className="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-full hover:border-black hover:bg-gray-50 transition-colors"
+                >
+                  🏗️ Sandbox/Creative
+                </button>
+              </div>
+            </div>
+          </div>
 
           {/* Genres & Platforms */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -219,13 +271,13 @@ export default function ProjectDetailsCard({ project, onProjectUpdate }) {
     );
   }
 
-  // ----- VIEW MODE -----
+  // ----- VIEW MODE WITH ENHANCED DESCRIPTION UI -----
   return (
     <div className="bg-white rounded-lg border p-6">
       {/* Header with Edit Button */}
       <div className="flex justify-between items-start">
         <div className="flex-1">
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap mb-3">
             <h1 className="text-2xl font-bold text-gray-900">
               {project.name}
             </h1>
@@ -234,14 +286,54 @@ export default function ProjectDetailsCard({ project, onProjectUpdate }) {
               onStatusUpdate={onProjectUpdate}
             />
           </div>
-          {project.description && (
-            <p className="text-gray-600 mt-2 text-sm">{project.description}</p>
+          
+          {/* ENHANCED DESCRIPTION SECTION */}
+          {project.description ? (
+            <div className="relative group">
+              {/* Description with better typography */}
+              <div className="prose prose-sm max-w-none text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-100">
+                <div className="flex items-start gap-3">
+                  {/* Quote icon for visual appeal */}
+                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                  
+                  {/* Description content with line breaks preserved */}
+                  <div className="flex-1">
+                    <p className="text-sm whitespace-pre-wrap leading-relaxed">
+                      {project.description}
+                    </p>
+                    
+                    {/* Optional: Show word count for longer descriptions */}
+                    {project.description.split(' ').length > 100 && (
+                      <div className="mt-2 flex items-center gap-1 text-xs text-gray-400">
+                        <span>📝</span>
+                        <span>{project.description.split(' ').length} words</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Subtle gradient for long descriptions (optional - can be removed if not needed) */}
+              {project.description.length > 400 && (
+                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-lg"></div>
+              )}
+            </div>
+          ) : (
+            <div className="bg-gray-50 p-4 rounded-lg border border-dashed border-gray-300 text-center group hover:bg-gray-100 transition-colors cursor-pointer" onClick={() => setIsEditing(true)}>
+              <svg className="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+              </svg>
+              <p className="text-sm text-gray-500 mb-1">No description yet</p>
+              <p className="text-xs text-gray-400">Click to add a project description</p>
+            </div>
           )}
         </div>
         
         <button
           onClick={() => setIsEditing(true)}
-          className="ml-4 px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors flex items-center gap-2"
+          className="ml-4 px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors flex items-center gap-2 flex-shrink-0"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -356,7 +448,7 @@ export default function ProjectDetailsCard({ project, onProjectUpdate }) {
           <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
             <span>💡</span> From Idea
           </p>
-          <div className="flex items-center gap-2 bg-blue-50 p-2 rounded-lg">
+          <div className="flex items-center gap-2 bg-blue-50 p-2 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer">
             <span className="text-lg">💡</span>
             <span className="text-sm text-gray-700">
               {typeof project.sourceIdea === 'object' 
@@ -364,6 +456,9 @@ export default function ProjectDetailsCard({ project, onProjectUpdate }) {
                 : 'Original Game Idea'
               }
             </span>
+            <svg className="w-4 h-4 ml-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </div>
         </div>
       )}

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { getSavedIdeasAPI } from "../features/ideator/ideatorAPI";
+import { getSavedIdeasAPI, deleteIdeaAPI } from "../features/ideator/ideatorAPI";
 import { Link } from "react-router";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import { createProjectFromIdeaAPI } from "../features/projects/projectAPI";
 import { useNavigate } from "react-router";
-import { 
-  GAME_GENRES, 
-  PLATFORMS, 
-  TARGET_AUDIENCES, 
-  ART_STYLES, 
+import {
+  GAME_GENRES,
+  PLATFORMS,
+  TARGET_AUDIENCES,
+  ART_STYLES,
   MONETIZATION_MODELS,
   formatArrayForDisplay,
   getIconFromValue
@@ -19,6 +19,7 @@ export default function SavedIdeasPage() {
   const [loading, setLoading] = useState(true);
   const [selectedIdea, setSelectedIdea] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +36,31 @@ export default function SavedIdeasPage() {
       console.error("Create project error:", error);
     }
   };
+  const handleDeleteIdea = async (ideaId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this idea? This action cannot be undone."
+    );
 
+    if (!confirmDelete) return;
+
+    try {
+      setDeleteLoading(true);
+
+      const res = await deleteIdeaAPI(ideaId);
+
+      if (res.success) {
+        setIdeas((prev) => prev.filter((idea) => idea._id !== ideaId));
+
+        if (selectedIdea && selectedIdea._id === ideaId) {
+          handleCloseModal();
+        }
+      }
+    } catch (error) {
+      console.error("Delete idea error:", error);
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
   const fetchIdeas = async () => {
     try {
       setLoading(true);
@@ -168,7 +193,7 @@ export default function SavedIdeasPage() {
                         </span>
                       )}
                     </div>
-                    
+
                     {/* Tags/Badges */}
                     <div className="flex flex-wrap gap-2 mt-2">
                       {/* Genres */}
@@ -183,7 +208,7 @@ export default function SavedIdeasPage() {
                           🎮 {idea.genre}
                         </span>
                       )}
-                      
+
                       {/* Platforms */}
                       {idea.platforms && idea.platforms.length > 0 ? (
                         idea.platforms.slice(0, 2).map(platform => (
@@ -196,14 +221,14 @@ export default function SavedIdeasPage() {
                           🖥️ {idea.platform}
                         </span>
                       )}
-                      
+
                       {/* Feasibility Score */}
                       {idea.feasibilityScore !== undefined && (
                         <span className={`text-xs px-2 py-1 rounded-full ${getFeasibilityColor(idea.feasibilityScore)}`}>
                           📊 Score: {idea.feasibilityScore}/100
                         </span>
                       )}
-                      
+
                       {/* More indicator */}
                       {idea.genres && idea.genres.length > 3 && (
                         <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
@@ -212,7 +237,7 @@ export default function SavedIdeasPage() {
                       )}
                     </div>
                   </div>
-                  
+
                   {/* Date */}
                   <span className="text-sm text-gray-500 whitespace-nowrap ml-4">
                     {formatDate(idea.createdAt)}
@@ -234,21 +259,21 @@ export default function SavedIdeasPage() {
                       {getIconFromValue(idea.artStyle, ART_STYLES)} {idea.artStyle}
                     </span>
                   )}
-                  
+
                   {/* Monetization */}
                   {idea.monetization && (
                     <span className="flex items-center gap-1">
                       {getIconFromValue(idea.monetization, MONETIZATION_MODELS)} {idea.monetization}
                     </span>
                   )}
-                  
+
                   {/* Target Audience */}
                   {idea.targetAudience && (
                     <span className="flex items-center gap-1">
                       {getIconFromValue(idea.targetAudience, TARGET_AUDIENCES)} {idea.targetAudience}
                     </span>
                   )}
-                  
+
                   {/* Core Mechanic */}
                   {idea.coreMechanic && (
                     <span className="flex items-center gap-1 text-gray-500">
@@ -270,7 +295,7 @@ export default function SavedIdeasPage() {
                       <span>🔍</span>
                       View Full
                     </button>
-                    
+
                     <button
                       onClick={() => copyToClipboard(idea.content)}
                       className="text-sm px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors flex items-center gap-1"
@@ -278,7 +303,13 @@ export default function SavedIdeasPage() {
                       <span>📋</span>
                       Copy
                     </button>
-                    
+                    <button
+                      onClick={() => handleDeleteIdea(idea._id)}
+                      className="text-sm px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors flex items-center gap-1"
+                    >
+                      <span>🗑</span>
+                      Delete
+                    </button>
                     <button
                       onClick={() => handleCreateProject(idea)}
                       disabled={idea.isConvertedToProject}
@@ -328,7 +359,7 @@ export default function SavedIdeasPage() {
                         </span>
                       )}
                     </div>
-                    
+
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mt-2">
                       {/* Genres */}
@@ -337,14 +368,14 @@ export default function SavedIdeasPage() {
                           🎮 {genre}
                         </span>
                       ))}
-                      
+
                       {/* Platforms */}
                       {(selectedIdea.platforms?.length > 0 ? selectedIdea.platforms : selectedIdea.platform ? [selectedIdea.platform] : []).map(platform => (
                         <span key={platform} className="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">
                           🖥️ {platform}
                         </span>
                       ))}
-                      
+
                       {/* Feasibility */}
                       {selectedIdea.feasibilityScore !== undefined && (
                         <span className={`text-sm px-3 py-1 rounded-full ${getFeasibilityColor(selectedIdea.feasibilityScore)}`}>
@@ -353,7 +384,7 @@ export default function SavedIdeasPage() {
                       )}
                     </div>
                   </div>
-                  
+
                   <button
                     onClick={handleCloseModal}
                     className="text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -370,7 +401,7 @@ export default function SavedIdeasPage() {
                     <span className="text-xs text-gray-500 block">Created</span>
                     <span className="font-medium">{formatDate(selectedIdea.createdAt)}</span>
                   </div>
-                  
+
                   {selectedIdea.artStyle && (
                     <div className="bg-gray-50 p-2 rounded">
                       <span className="text-xs text-gray-500 block">Art Style</span>
@@ -379,7 +410,7 @@ export default function SavedIdeasPage() {
                       </span>
                     </div>
                   )}
-                  
+
                   {selectedIdea.monetization && (
                     <div className="bg-gray-50 p-2 rounded">
                       <span className="text-xs text-gray-500 block">Monetization</span>
@@ -388,7 +419,7 @@ export default function SavedIdeasPage() {
                       </span>
                     </div>
                   )}
-                  
+
                   {selectedIdea.targetAudience && (
                     <div className="bg-gray-50 p-2 rounded">
                       <span className="text-xs text-gray-500 block">Target Audience</span>
@@ -468,7 +499,13 @@ export default function SavedIdeasPage() {
                   <span>📋</span>
                   Copy Full Idea
                 </button>
-
+                <button
+                  onClick={() => handleDeleteIdea(selectedIdea._id)}
+                  className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
+                >
+                  <span>🗑</span>
+                  Delete Idea
+                </button>
                 <div className="flex gap-3">
                   <button
                     onClick={() => handleCreateProject(selectedIdea)}

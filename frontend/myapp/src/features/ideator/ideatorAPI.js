@@ -38,3 +38,9 @@ export const getIdeaByIdAPI = async (ideaId) => {
   const res = await api.get(`/idea/${ideaId}`);
   return res.data;
 };
+
+
+export const deleteIdeaAPI = async (ideaId) => {
+  const res = await api.delete(`/idea/${ideaId}`);
+  return res.data;
+};

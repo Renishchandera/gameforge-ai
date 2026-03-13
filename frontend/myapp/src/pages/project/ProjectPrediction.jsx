@@ -1,43 +1,69 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useOutletContext } from "react-router";
-import { predictSuccessAPI } from "../../features/ML/mlAPI";
+import { predictSuccessAPI, projectFeasibilityAPI } from "../../features/ML/mlAPI";
 
 export default function ProjectPrediction() {
   const { projectId } = useParams();
-  const { project, refreshProject} = useOutletContext();
+  const { project, refreshProject } = useOutletContext();
 
   const [prediction, setPrediction] = useState(
     project.successPrediction || null
   );
+  const [feasibility, setFeasibility] = useState(
+    project.feasibilityAnalysis || null
+  );
+  const [feasibilityLoading, setFeasibilityLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  if (project.successPrediction) {
-    setPrediction(project.successPrediction);
-  }
-}, [project.successPrediction]);
-const handlePredict = async () => {
-  try {
-    setLoading(true);
-    setError(null);
-
-    const res = await predictSuccessAPI(projectId);
-
-    if (res.success) {
-      // 🔑 THIS IS THE FIX
-      await refreshProject();
-      setPrediction(res.prediction);
-    } else {
-      setError("Failed to get prediction");
+    if (project.successPrediction) {
+      setPrediction(project.successPrediction);
     }
-  } catch (err) {
-    console.error(err);
-    setError("Something went wrong while predicting");
-  } finally {
-    setLoading(false);
-  }
-};
+  }, [project.successPrediction]);
+  useEffect(() => {
+    if (project.feasibilityAnalysis) {
+      setFeasibility(project.feasibilityAnalysis);
+    }
+  }, [project.feasibilityAnalysis]);
+  const handleFeasibility = async () => {
+    try {
+      setFeasibilityLoading(true);
+
+      const res = await projectFeasibilityAPI(projectId);
+
+      if (res.success) {
+        await refreshProject();   // important
+        setFeasibility(res.feasibility);
+      }
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setFeasibilityLoading(false);
+    }
+  };
+  const handlePredict = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const res = await predictSuccessAPI(projectId);
+
+      if (res.success) {
+        // 🔑 THIS IS THE FIX
+        await refreshProject();
+        setPrediction(res.prediction);
+      } else {
+        setError("Failed to get prediction");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong while predicting");
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
@@ -110,7 +136,49 @@ const handlePredict = async () => {
           )}
         </div>
       )}
+
+      <div className="border rounded-lg bg-white p-6 space-y-4">
+
+        <div className="flex justify-between items-center">
+          <h3 className="font-semibold text-lg">
+            Development Feasibility
+          </h3>
+
+          <button
+            onClick={handleFeasibility}
+            disabled={feasibilityLoading}
+            className="text-sm px-3 py-1 border rounded hover:bg-gray-100"
+          >
+            {feasibilityLoading ? "Analyzing..." : feasibility ? "Re-analyze" : "Analyze"}
+          </button>
+        </div>
+
+        {feasibility && (
+          <>
+            <Metric label="Feasibility Score">
+              {feasibility.score}/100
+            </Metric>
+
+            <div className="text-sm text-gray-600">
+              {feasibility.reasoning}
+            </div>
+
+            {feasibility.risks && (
+              <div>
+                <p className="font-medium text-sm mb-2">Risks</p>
+                <ul className="list-disc pl-5 text-sm text-gray-600">
+                  {feasibility.risks.map((r, i) => (
+                    <li key={i}>{r}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
+        )}
+
+      </div>
     </div>
+
   );
 }
 

@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
-import { useParams, useOutletContext } from "react-router";
+import { useParams, useOutletContext, useNavigate } from "react-router";
 import ProjectDetailsCard from "../../components/projects/ProjectDetailsCard";
 import ProjectStatsCard from "../../components/projects/ProjectStatsCard";
 import TaskBoard from "../../components/tasks/TaskBoard";
-import { getProjectStatsAPI } from "../../features/projects/projectAPI";
+import { getProjectStatsAPI, deleteProjectAPI } from "../../features/projects/projectAPI";
 
 export default function ProjectOverview() {
   const { projectId } = useParams();
+  const navigate = useNavigate();
   const { project, refreshProject } = useOutletContext();
+
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     fetchStats();
@@ -26,22 +30,41 @@ export default function ProjectOverview() {
     }
   };
 
-  const handleProjectUpdate = (updatedProject) => {
+  const handleProjectUpdate = () => {
     refreshProject();
     fetchStats();
   };
 
+  /**
+   * Delete Project
+   */
+  const handleDeleteProject = async () => {
+    try {
+      setDeleting(true);
+      await deleteProjectAPI(projectId);
+
+      setShowDeleteModal(false);
+      navigate("/projects");
+
+    } catch (error) {
+      console.error("Failed to delete project:", error);
+      alert("Failed to delete project");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
-      {/* Project Details Card - Now with full edit capabilities */}
-      <ProjectDetailsCard 
-        project={project} 
+
+      {/* Project Details */}
+      <ProjectDetailsCard
+        project={project}
         onProjectUpdate={handleProjectUpdate}
       />
 
-      {/* Two Column Layout for Stats and Quick Actions */}
+         {/* Stats Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Stats Card - 2 columns on large screens */}
         <div className="lg:col-span-2">
           {loading ? (
             <div className="bg-white rounded-lg border p-6 animate-pulse">
@@ -53,62 +76,58 @@ export default function ProjectOverview() {
             <ProjectStatsCard stats={stats} project={project} />
           )}
         </div>
-
-        {/* Quick Actions Card */}
-        <div className="bg-white rounded-lg border p-6">
-          <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
-          <div className="space-y-3">
-            <button className="w-full px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors">
-              <span>➕</span>
-              Add Task
-            </button>
-            <button className="w-full px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors">
-              <span>📧</span>
-              Share Project
-            </button>
-            <button className="w-full px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors">
-              <span>📊</span>
-              Generate Report
-            </button>
-          </div>
-
-          {/* Project Info */}
-          <div className="mt-6 pt-6 border-t">
-            <h3 className="text-xs font-medium text-gray-500 mb-3">PROJECT INFO</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-500">Created by</span>
-                <span className="text-gray-900">You</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Project ID</span>
-                <span className="text-gray-600 font-mono text-xs">
-                  {project._id.slice(-8)}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Task Board */}
-      {/* <div className="bg-white rounded-lg border p-6">
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h2 className="text-lg font-semibold">Task Board</h2>
-            <p className="text-sm text-gray-500 mt-1">
-              Drag and drop tasks to update their status
+ 
+
+      {/* DELETE CONFIRMATION MODAL */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md">
+
+            <h2 className="text-lg font-semibold mb-2">
+              Delete Project
+            </h2>
+
+            <p className="text-sm text-gray-600 mb-6">
+              Are you sure you want to delete this project?  
+              This action cannot be undone.
             </p>
+
+            <div className="flex justify-end gap-3">
+
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={handleDeleteProject}
+                disabled={deleting}
+                className="px-4 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
+              >
+                {deleting ? "Deleting..." : "Delete"}
+              </button>
+
+            </div>
           </div>
-          <button className="px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            New Task
-          </button>
+
         </div>
-        <TaskBoard projectId={projectId} />
-      </div> */}
+      )}
+
+
+  {/* Delete Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={() => setShowDeleteModal(true)}
+          className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+        >
+          Delete Project
+        </button>
+      </div>
     </div>
   );
 }

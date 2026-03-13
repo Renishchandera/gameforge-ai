@@ -16,7 +16,13 @@ connectDB();
 // // Security middleware
 // app.use(helmet());
 app.use(cookieParser());
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // your frontend URL
+    credentials: true
+  })
+);
 morgan.token("req-body", (req) => JSON.stringify(req.body));
 morgan.token("query", (req) => JSON.stringify(req.query));
 app.use(

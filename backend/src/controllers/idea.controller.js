@@ -161,3 +161,32 @@ function extractTitleFromContent(content) {
   const firstLine = content.split('\n')[0];
   return firstLine.length > 50 ? "Game Idea" : firstLine;
 }
+
+
+exports.deleteIdea = async (req, res) => {
+  try {
+    const idea = await Idea.findOneAndDelete({
+      _id: req.params.id,
+      createdBy: req.user.id
+    });
+
+    if (!idea) {
+      return res.status(404).json({
+        success: false,
+        message: "Idea not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Idea deleted successfully"
+    });
+
+  } catch (error) {
+    console.error("Delete idea error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete idea"
+    });
+  }
+};

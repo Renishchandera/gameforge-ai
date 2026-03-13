@@ -5,7 +5,7 @@ const tabs = [
   { label: "Overview", path: "" },
   { label: "Success Prediction", path: "prediction" },
   { label: "Tasks", path: "tasks" },
-  { label: "Documents", path: "documents" }
+  // { label: "Documents", path: "documents" }
 ];
 
 export default function ProjectTabs({ projectId }) {

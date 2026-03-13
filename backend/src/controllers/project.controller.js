@@ -84,7 +84,7 @@ exports.createProjectFromIdea = async (req, res) => {
     // Handle both old and new data formats
     const project = await Project.create({
       name: idea.title || "Untitled Project",
-      description: idea.content.slice(0, 200),
+      description: idea.content,
       // Support both genres (array) and genre (string)
       genres: idea.genres || (idea.genre ? [idea.genre] : []),
       // Support both platforms (array) and platform (string)
@@ -352,6 +352,69 @@ exports.getProjectStats = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch project statistics"
+    });
+  }
+};
+
+
+
+
+const aiLLMClient = require("../services/aiLLM.client");
+
+exports.projectFeasibility = async (req, res) => {
+  try {
+    const project = await Project.findOne({
+      _id: req.params.id,
+      owner: req.user.id
+    });
+
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found"
+      });
+    }
+
+    const ideaText = `
+Project: ${project.name}
+
+Description:
+${project.description || "No description"}
+
+Genres: ${(project.genres || []).join(", ")}
+Platforms: ${(project.platforms || []).join(", ")}
+Target Audience: ${project.targetAudience || "Unknown"}
+Core Mechanic: ${project.coreMechanic || "Not defined"}
+Art Style: ${project.artStyle || "Unknown"}
+Monetization: ${project.monetization || "Unknown"}
+`;
+
+    const response = await aiLLMClient.post("/ai/idea/feasibility", {
+      idea: ideaText
+    });
+
+    const feasibility = {
+      score: response.data.score,
+      reasoning: response.data.reasoning,
+      risks: response.data.risks || [],
+      analyzedAt: new Date()
+    };
+
+    project.feasibilityAnalysis = feasibility;
+
+    await project.save();
+
+    res.json({
+      success: true,
+      feasibility
+    });
+
+  } catch (error) {
+    console.error("Project feasibility error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to analyze feasibility"
     });
   }
 };

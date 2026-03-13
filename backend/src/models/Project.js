@@ -32,7 +32,12 @@ const projectSchema = new mongoose.Schema(
       modelVersion: String,
       predictedAt: Date
     },
-
+    feasibilityAnalysis: {
+      score: Number,
+      risks: [String],
+      reasoning: String,
+      analyzedAt: Date
+    },
     // Ownership
     owner: {
       type: mongoose.Schema.Types.ObjectId,

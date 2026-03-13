@@ -34,7 +34,7 @@ IMPORTANT INSTRUCTIONS:
 5. Combine elements from multiple genres/platforms creatively
 
 REQUIRED OUTPUT FORMAT:
-TITLE: [Create a memorable game title that reflects the genre combination]
+TITLE: [Create a memorable game title that reflects the genre combination] (Dont give in BOLD font, give in normal font)
 
 GENRE & PLATFORM FUSION:
 Primary Genre: ${Array.isArray(genres) ? genres[0] : genres} 
@@ -69,5 +69,9 @@ PLATFORM-SPECIFIC CONSIDERATIONS:
 
 DEVELOPMENT CONSIDERATIONS:
 [Main technical or design challenges to consider for this genre combination]
+
+VERY STRICTLY FOLLOW THE GENRES AND THE DETAILED PROVIDED FOR THE IDEA GENERATION, DONT HALLUCINATE AND GENERATE THE COMMON RESPONSES
+/*Dont give generic ideas and just long texts, make it simple but sensible and real world games inspired. and Give UNQIUE NAMES not dramatic or just most common demo names it should be real production level ideas*/
+/*DONT DO THE FORMATTING LIKE BOLD OR ITALIC OR ETC...DO The Proper Spacing but not special formating*?
 `;
 };

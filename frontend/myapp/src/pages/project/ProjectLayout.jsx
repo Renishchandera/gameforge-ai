@@ -28,6 +28,7 @@ export default function ProjectLayout() {
   
   return (
     <DashboardLayout>
+      
       {/* Tabs */}
       <ProjectTabs projectId={projectId} />
       {/* Content - This will now show ProjectOverview by default if you set up routes correctly */}
