@@ -134,14 +134,14 @@ export default function DocumentList() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <Button
+          {/* <Button
             onClick={() => setShowAIDialog(true)}
             variant="outline"
             className="gap-2"
           >
             <Sparkles className="h-4 w-4" />
             Generate with AI
-          </Button>
+          </Button> */}
           <Button
             onClick={() => setShowCreateDialog(true)}
             className="gap-2 bg-black text-white hover:bg-gray-800"
@@ -206,16 +206,16 @@ export default function DocumentList() {
           <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No documents yet</h3>
           <p className="text-gray-500 mb-4">
-            Get started by creating your first document or generating one with AI
+            Get started by creating your first document
           </p>
           <div className="flex justify-center gap-3">
             <Button onClick={() => setShowCreateDialog(true)} variant="outline">
               Create Document
             </Button>
-            <Button onClick={() => setShowAIDialog(true)}>
+            {/* <Button onClick={() => setShowAIDialog(true)}>
               <Sparkles className="h-4 w-4 mr-2" />
               Generate with AI
-            </Button>
+            </Button> */}
           </div>
         </div>
       ) : (

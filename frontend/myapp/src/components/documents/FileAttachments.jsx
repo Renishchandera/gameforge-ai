@@ -267,7 +267,7 @@ export default function FileAttachments({ projectId, documentId, attachments = [
                 <TableHead>Name</TableHead>
                 <TableHead>Size</TableHead>
                 <TableHead>Uploaded</TableHead>
-                <TableHead>Uploaded By</TableHead>
+                {/* <TableHead>Uploaded By</TableHead> */}
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -305,9 +305,9 @@ export default function FileAttachments({ projectId, documentId, attachments = [
                       : new Date(item.createdAt).toLocaleDateString()
                     }
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     {item.uploadedBy?.username || 'Unknown'}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-1">
                       {item.type === 'attachment' && (

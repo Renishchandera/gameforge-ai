@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
-
+import LogoutButton from "../auth/LogoutButton";
 const navItems = [
   { label: "Dashboard", path: "/" },
   { label: "Generate Idea", path: "/generate/idea" },
@@ -29,6 +29,8 @@ export default function Sidebar() {
           </Link>
         ))}
       </nav>
+      <LogoutButton variant="outline" className="text-red-600 mt-10 border-red-200 hover:bg-red-50" />
+
     </aside>
   );
 }

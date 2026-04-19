@@ -69,14 +69,14 @@ export default function DocumentCard({ document, onEdit, onDelete, onExport, onV
                 <Eye className="h-4 w-4 mr-2" />
                 View
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onEdit?.(document)}>
+              {/* <DropdownMenuItem onClick={() => onEdit?.(document)}>
                 <Edit className="h-4 w-4 mr-2" />
                 Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onExport?.(document._id)}>
+              </DropdownMenuItem> */}
+              {/* <DropdownMenuItem onClick={() => onExport?.(document._id)}>
                 <Download className="h-4 w-4 mr-2" />
                 Export PDF
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => onDelete?.(document._id)}
@@ -110,17 +110,12 @@ export default function DocumentCard({ document, onEdit, onDelete, onExport, onV
             {formatDistanceToNow(new Date(document.updatedAt), { addSuffix: true })}
           </span>
         </div>
-        <span className="bg-gray-100 px-2 py-1 rounded-full text-xs">
-          {document.wordCount} words
-        </span>
          {/* In DocumentCard.jsx, add to the footer */}
         <div className="flex items-center gap-3 text-xs text-gray-400">
           <span className="flex items-center gap-1">
             <Paperclip className="h-3 w-3" />
             {document.attachmentCount || 0} files
           </span>
-          <span>•</span>
-          <span>{document.wordCount} words</span>
         </div>
       </CardFooter>
     </Card>
